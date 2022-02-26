@@ -64,15 +64,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     private int field_92019_w;
     private ResourceLocation backgroundTexture;
     private GuiButton realmsButton;
-    private boolean field_183502_L;
-    private GuiScreen field_183503_M;
     private GuiButton modButton;
     private GuiScreen modUpdateNotification;
 
     public GuiMainMenu()
     {
         this.openGLWarning2 = field_96138_a;
-        this.field_183502_L = false;
         this.splashText = "missingno";
         BufferedReader bufferedreader = null;
 
@@ -135,19 +132,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         }
     }
 
-    private boolean func_183501_a()
-    {
-        return Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(GameSettings.Options.REALMS_NOTIFICATIONS) && this.field_183503_M != null;
-    }
-
     public void updateScreen()
     {
         ++this.panoramaTimer;
-
-        if (this.func_183501_a())
-        {
-            this.field_183503_M.updateScreen();
-        }
     }
 
     public boolean doesGuiPauseGame()
@@ -204,21 +191,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.field_92021_u = ((GuiButton)this.buttonList.get(0)).yPosition - 24;
             this.field_92020_v = this.field_92022_t + k;
             this.field_92019_w = this.field_92021_u + 24;
-        }
-
-        this.mc.setConnectedToRealms(false);
-
-        if (Minecraft.getMinecraft().gameSettings.getOptionOrdinalValue(GameSettings.Options.REALMS_NOTIFICATIONS) && !this.field_183502_L)
-        {
-            RealmsBridge realmsbridge = new RealmsBridge();
-            this.field_183503_M = realmsbridge.getNotificationScreen(this);
-            this.field_183502_L = true;
-        }
-
-        if (this.func_183501_a())
-        {
-            this.field_183503_M.setGuiSize(this.width, this.height);
-            this.field_183503_M.initGui();
         }
     }
 
@@ -621,11 +593,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (this.func_183501_a())
-        {
-            this.field_183503_M.drawScreen(mouseX, mouseY, partialTicks);
-        }
-
         if (this.modUpdateNotification != null)
         {
             this.modUpdateNotification.drawScreen(mouseX, mouseY, partialTicks);
@@ -644,19 +611,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
                 guiconfirmopenlink.disableSecurityWarning();
                 this.mc.displayGuiScreen(guiconfirmopenlink);
             }
-        }
-
-        if (this.func_183501_a())
-        {
-            this.field_183503_M.mouseClicked(mouseX, mouseY, mouseButton);
-        }
-    }
-
-    public void onGuiClosed()
-    {
-        if (this.field_183503_M != null)
-        {
-            this.field_183503_M.onGuiClosed();
         }
     }
 }

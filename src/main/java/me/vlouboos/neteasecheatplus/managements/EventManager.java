@@ -1,4 +1,8 @@
-package com.darkmagician6.eventapi;
+package me.vlouboos.neteasecheatplus.managements;
+
+import com.darkmagician6.eventapi.Event;
+import com.darkmagician6.eventapi.EventTarget;
+import com.darkmagician6.eventapi.Priority;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -207,9 +211,8 @@ public final class EventManager {
      * After that is all done it will return the Event.
      *
      * @param event Event to dispatch.
-     * @return Event in the state after dispatching it.
      */
-    public static Event call(final Event event) {
+    public static void call(final Event event) {
         List<MethodData> dataList = REGISTRY_MAP.get(event.getClass());
 
         if (dataList != null) {
@@ -217,8 +220,6 @@ public final class EventManager {
                 invoke(data, event);
             }
         }
-
-        return event;
     }
 
     /**

@@ -1,6 +1,7 @@
 package me.vlouboos.neteasecheatplus;
 
 import me.vlouboos.neteasecheatplus.exceptions.InitializeException;
+import me.vlouboos.neteasecheatplus.utils.Managers;
 
 public class Client {
     public static Client instance;
@@ -13,6 +14,10 @@ public class Client {
     }
 
     public void startGame() {
+        Managers.init();
+    }
 
+    public String version() {
+        return "b1";
     }
 }

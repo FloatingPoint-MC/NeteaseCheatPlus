@@ -1,7 +1,7 @@
 package com.darkmagician6.eventapi;
 
 public class Event {
-    public boolean cancelled;
+    private boolean cancelled;
 
     public boolean isCancelled() {
         return cancelled;

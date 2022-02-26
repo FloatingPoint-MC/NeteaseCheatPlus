@@ -37,7 +37,9 @@ import java.util.concurrent.FutureTask;
 import javax.imageio.ImageIO;
 
 import me.vlouboos.neteasecheatplus.Client;
+import me.vlouboos.neteasecheatplus.events.EventKey;
 import me.vlouboos.neteasecheatplus.exceptions.InitializeException;
+import me.vlouboos.neteasecheatplus.managements.EventManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;
@@ -392,6 +394,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     private void startGame() throws LWJGLException, IOException
     {
+        try {
+            new Client().startGame();
+        } catch (InitializeException e) {
+            this.crashed(new CrashReport("Initialize Error", e));
+        }
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
         this.startTimerHackThread();
@@ -515,11 +522,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             this.gameSettings.enableVsync = false;
             this.gameSettings.saveOptions();
         }
-        try {
-            new Client().startGame();
-        } catch (InitializeException e) {
-            this.crashed(new CrashReport("Initialize Error", e));
-        }
 
         this.renderGlobal.makeEntityOutlineShader();
     }
@@ -549,7 +551,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.9");
+        Display.setTitle("NCP " + Client.instance.version() + " | Minecraft 1.8.9");
 
         try
         {
@@ -1800,6 +1802,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                     }
                     else
                     {
+                        EventKey eventKey = new EventKey(k);
+                        EventManager.call(eventKey);
+                        if (eventKey.isCancelled()) return;
+                        k = eventKey.getKey();
                         if (k == 1)
                         {
                             this.displayInGameMenu();

@@ -16,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author DarkMagician6
  * @since February 2, 2014
  */
-public final class EventManager {
+public class EventManager {
 
     /**
      * HashMap containing all the registered MethodData sorted on the event parameters of the methods.

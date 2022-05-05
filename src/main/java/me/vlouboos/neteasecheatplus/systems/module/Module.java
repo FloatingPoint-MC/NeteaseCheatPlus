@@ -1,8 +1,12 @@
 package me.vlouboos.neteasecheatplus.systems.module;
 
 import me.vlouboos.neteasecheatplus.managements.EventManager;
+import me.vlouboos.neteasecheatplus.systems.module.value.Value;
 import me.vlouboos.neteasecheatplus.utils.TimeHelper;
 import net.minecraft.client.Minecraft;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Module {
     private final String name;
@@ -11,6 +15,7 @@ public class Module {
     private int key;
     private boolean enabled;
     private final TimeHelper antiNoise = new TimeHelper();
+    private ArrayList<Value<?>> values;
     protected static final Minecraft mc = Minecraft.getMinecraft();
 
     public Module(String name, Category category) {
@@ -76,5 +81,13 @@ public class Module {
 
     public void toggle() {
         this.setEnabled(!this.enabled);
+    }
+
+    public ArrayList<Value<?>> getValues() {
+        return values;
+    }
+
+    public void registerValues(Value<?>... values) {
+        this.values.addAll(Arrays.asList(values));
     }
 }

@@ -9,7 +9,7 @@ NeteaseCheatPlus(NCP) is a new free open-source hacked client.
 2. Unzip and open an IDE editor
 3. Use your IDE tool to open the Maven-File(pom.xml)
 ### Scheme 2:
-1. Copy the URL link
+1. Copy the URL link(https://github.com/FloatingPoint-MC/NeteaseCheatPlus.git)
 2. Paste it here:![img.png](.github/gitDown.png)
 3. Press "Clone"
 4. Build the maven project
